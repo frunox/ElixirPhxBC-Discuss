@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <%= csrf_meta_tag() %>
+    <%= live_title_tag assigns[:page_title] || "Discuss" %>
+    <link phx-track-static rel="stylesheet" href={Routes.static_path(@conn, "/assets/app.css")}/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script defer phx-track-static type="text/javascript" src={Routes.static_path(@conn, "/assets/app.js")}></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  </head>
+  <body>
+    <header>
+      <nav class="light-blue">
+        <div class="nav-wrapper container">
+          <a href="/" class="brand-logo center">
+            Discussions
+          </a>
+          <ul class="right">
+            <%= if @conn.assigns[:user] do %>
+              <li>
+                <%= link "Log Out", to: Routes.auth_path(@conn, :signout) %>
+              </li>
+            <% else %>
+              <li>
+                <%= link "Sign in with Github", to: Routes.auth_path(@conn, :request, "github") %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </nav>
+      <section class="container">
+
+      </section>
+    </header>
+    <%= @inner_content %>
+  </body>
+</html>
