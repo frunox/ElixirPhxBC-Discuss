@@ -24,6 +24,8 @@ defmodule DiscussWeb do
       alias Discuss.Repo
       import Plug.Conn
       import DiscussWeb.Gettext
+      import Ecto
+      import Ecto.Query
       alias DiscussWeb.Router.Helpers, as: Routes
     end
   end
