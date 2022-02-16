@@ -7,7 +7,7 @@ import {Socket} from "phoenix"
 // And connect to the path in "lib/discuss_web/endpoint.ex". We pass the
 // token for authentication. Read below how it should be used.
 let socket = new Socket("/socket", {params: {token: window.userToken}})
-console.log("socket:", socket)
+// console.log("socket:", socket)
 
 // When you connect, you'll often need to authenticate the client.
 // For example, imagine you have an authentication plug, `MyAuth`,
