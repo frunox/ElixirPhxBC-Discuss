@@ -75,6 +75,7 @@ defmodule DiscussWeb do
   def channel do
     quote do
       use Phoenix.Channel
+      alias Discuss.Repo
       import DiscussWeb.Gettext
     end
   end
