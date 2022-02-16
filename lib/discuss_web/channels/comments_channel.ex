@@ -1,25 +1,41 @@
 defmodule DiscussWeb.CommentsChannel do
   use DiscussWeb, :channel
 
+  import Ecto
+
+  alias Phoenix.Socket.Serializer
+  alias Discuss.{Topic, Comment}
+
   @impl true
-  def join(name, payload, socket) do
+  def join("comments:" <> topic_id, payload, socket) do
     if authorized?(payload) do
-      # IO.puts("++++++ name")
-      # IO.inspect(name)
-      {:ok, %{hey: "there"}, socket}
+      topic_id = String.to_integer(topic_id)
+      topic = Repo.get(Topic, topic_id)
+      # IO.puts("+++++++++ topic")
+      # IO.inspect(topic)
+      {:ok, %{}, assign(socket, :topic, topic)}
     else
       {:error, %{reason: "unauthorized"}}
     end
   end
 
-  # custom handle_in
-  # def handle_in(name, message, socket) do
-  #   IO.puts("+++++++ name")
-  #   IO.puts(name)
-  #   IO.inspect(message)
+  # V134 handle_in for adding new comment ('comment:add')
+  def handle_in("comment:add", %{"content" => content}, socket) do
+    topic = socket.assigns.topic
+ 
+    changeset = topic
+    |> build_assoc(:comments)
+    |> Comment.changeset(%{content: content})
 
-  #   {:reply, :ok, socket}
-  # end
+    case Repo.insert(changeset) do
+      {:ok, comment} ->
+        {:reply, :ok, socket}
+      {:error, _reason} ->
+        {:reply, {:error, %{errors: changeset}}, socket}
+    end
+
+    # {:reply, {:ok, content}, socket}
+  end
 
   # Channels can be used in a request/response fashion
   # by sending replies to requests from the client
