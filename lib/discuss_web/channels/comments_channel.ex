@@ -4,12 +4,21 @@ defmodule DiscussWeb.CommentsChannel do
   @impl true
   def join(name, payload, socket) do
     if authorized?(payload) do
-      IO.puts("++++++ name")
-      IO.inspect(name)
+      # IO.puts("++++++ name")
+      # IO.inspect(name)
       {:ok, %{hey: "there"}, socket}
     else
       {:error, %{reason: "unauthorized"}}
     end
+  end
+
+  # custom handle_in
+  def handle_in(name, message, socket) do
+    IO.puts("+++++++ name")
+    IO.puts(name)
+    IO.inspect(message)
+    
+    {:reply, :ok, socket}
   end
 
   # Channels can be used in a request/response fashion
