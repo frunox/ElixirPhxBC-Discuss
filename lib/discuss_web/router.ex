@@ -10,6 +10,7 @@ defmodule DiscussWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug Discuss.Plugs.SetUser
+    plug :put_user_token
   end
 
   pipeline :api do
@@ -34,6 +35,18 @@ defmodule DiscussWeb.Router do
     get "/signout", AuthController, :signout
     get "/:provider", AuthController, :request
     get "/:provider/callback", AuthController, :callback
+  end
+
+  # plug for getting user token
+  defp put_user_token(conn, _) do
+    # IO.puts("+++++ conn.assigns.user")
+    # IO.inspect(conn.assigns.user.id)
+    if conn.assigns.user do
+      token = Phoenix.Token.sign(conn, "user socket", conn.assigns.user.id)
+      assign(conn, :user_token, token)
+    else
+      conn
+    end
   end
 
   # Other scopes may use custom stacks.

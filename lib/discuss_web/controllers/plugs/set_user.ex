@@ -10,6 +10,8 @@ defmodule Discuss.Plugs.SetUser do
 
     def call(conn, _opts) do
         user_id = get_session(conn, :user_id)
+        IO.puts("+++++++ SetUser user_id")
+        IO.inspect(user_id)
 
         cond do
             user = user_id && Repo.get(User, user_id) ->
