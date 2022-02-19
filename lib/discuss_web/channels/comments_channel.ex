@@ -3,7 +3,6 @@ defmodule DiscussWeb.CommentsChannel do
 
   import Ecto
 
-  # alias Phoenix.Socket.Serializer
   alias Discuss.{Topic, Comment}
 
   @impl true
@@ -14,8 +13,6 @@ defmodule DiscussWeb.CommentsChannel do
         Topic
         |> Repo.get(topic_id)
         |> Repo.preload(:comments)
-      # IO.puts("+++++++++ topic.content")
-      # IO.inspect(topic.content)
       {:ok, %{comments: topic.comments}, assign(socket, :topic, topic)}
     else
       {:error, %{reason: "unauthorized"}}
@@ -45,8 +42,6 @@ defmodule DiscussWeb.CommentsChannel do
   # by sending replies to requests from the client
   @impl true
   def handle_in("ping", payload, socket) do
-    IO.puts("+++++++++++ in 'ping'")
-    IO.inspect(payload)
     {:reply, {:ok, payload}, socket}
   end
 

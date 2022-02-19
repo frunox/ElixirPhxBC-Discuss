@@ -7,10 +7,7 @@ defmodule DiscussWeb.TopicController do
   plug :check_topic_owner when action in [:update, :edit, :delete]
 
   def index(conn, _params) do
-    IO.puts("**** index route conn.assigns ******")
-    IO.inspect(conn.assigns)
     topics = Repo.all(Topic)
-    # IO.inspect(topics)
     render conn, "index.html", topics: topics
   end
 
@@ -27,8 +24,6 @@ defmodule DiscussWeb.TopicController do
   end
 
   def create(conn, %{"topic" => topic}) do
-    # IO.inspect(params)
-    # changeset = Topic.changeset(%Topic{}, topic)
 
     changeset = conn.assigns.user
       |> build_assoc(:topics)

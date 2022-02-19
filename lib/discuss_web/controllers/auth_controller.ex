@@ -4,7 +4,6 @@ defmodule DiscussWeb.AuthController do
     alias Discuss.User
 
     def callback(%{assigns: %{ueberauth_auth: auth}} = conn, _params) do
-        #  IO.inspect(auth)
         user_params = %{token: auth.credentials.token, email: auth.info.email, provider: "github"}
         changeset = User.changeset(%User{}, user_params)
 
@@ -13,8 +12,6 @@ defmodule DiscussWeb.AuthController do
     end
 
     defp signin(conn, changeset) do
-        IO.puts("++++++++ in signin, conn.assigns")
-        IO.inspect(conn.assigns)
         case insert_or_update_user(changeset) do
             {:ok, user} ->
                 conn

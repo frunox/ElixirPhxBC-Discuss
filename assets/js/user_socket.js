@@ -3,11 +3,9 @@
 
 // Bring in Phoenix channels client library:
 import {Socket} from "phoenix"
-console.log("+++++++++ in user_socket.js")
 // And connect to the path in "lib/discuss_web/endpoint.ex". We pass the
 // token for authentication. Read below how it should be used.
 let socket = new Socket("/socket", {params: {token: window.userToken}})
-console.log("socket:", socket)
 
 // When you connect, you'll often need to authenticate the client.
 // For example, imagine you have an authentication plug, `MyAuth`,
@@ -84,7 +82,6 @@ function renderComments(comments) {
 
 function renderComment(event) {
   const renderedComment = commentTemplate(event.comment);
-  // console.log("renderedComment:", renderedComment)
   document.querySelector('.collection').innerHTML += renderedComment;
 }
 

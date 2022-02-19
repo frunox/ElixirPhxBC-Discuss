@@ -39,16 +39,10 @@ defmodule DiscussWeb.Router do
 
   # plug for getting user token
   defp put_user_token(conn, _) do
-    IO.puts("+++++ put_user_token conn.assigns")
-    IO.inspect(conn.assigns)
-    # if not is_nil(conn.assigns.user) do
     if not is_nil(conn.assigns.user) do
       token = Phoenix.Token.sign(conn, "user socket", conn.assigns.user.id)
-      IO.puts("******* after Token.sign")
-      IO.inspect(token)
       assign(conn, :user_token, token)
     else
-      IO.puts("+++ PASSING CONN NO TOKEN")
       conn
     end
   end
