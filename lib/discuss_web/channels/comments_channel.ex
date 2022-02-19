@@ -34,8 +34,6 @@ defmodule DiscussWeb.CommentsChannel do
       {:error, _reason} ->
         {:reply, {:error, %{errors: changeset}}, socket}
     end
-
-    # {:reply, {:ok, content}, socket}
   end
 
   # Channels can be used in a request/response fashion
