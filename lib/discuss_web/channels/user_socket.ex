@@ -25,7 +25,7 @@ defmodule DiscussWeb.UserSocket do
   def connect(%{"token" => token}, socket, _connect_info) do
     IO.puts("++++++++ server connect token")
     IO.inspect token
-    if token = "" do
+    if token = "none" do
       {:ok, socket}
     else
       case Phoenix.Token.verify(socket, "user socket", token, max_age: 1_209_600) do

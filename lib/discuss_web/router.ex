@@ -43,7 +43,7 @@ defmodule DiscussWeb.Router do
       token = Phoenix.Token.sign(conn, "user socket", conn.assigns.user.id)
       assign(conn, :user_token, token)
     else
-      conn
+      assign(conn, :user_token, :none)
     end
   end
 
