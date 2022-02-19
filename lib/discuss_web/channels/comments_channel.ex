@@ -3,6 +3,7 @@ defmodule DiscussWeb.CommentsChannel do
 
   import Ecto
 
+  # alias Phoenix.Socket.Serializer
   alias Discuss.{Topic, Comment}
 
   @impl true

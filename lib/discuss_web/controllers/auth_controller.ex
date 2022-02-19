@@ -13,6 +13,8 @@ defmodule DiscussWeb.AuthController do
     end
 
     defp signin(conn, changeset) do
+        IO.puts("++++++++ in signin, conn.assigns")
+        IO.inspect(conn.assigns)
         case insert_or_update_user(changeset) do
             {:ok, user} ->
                 conn

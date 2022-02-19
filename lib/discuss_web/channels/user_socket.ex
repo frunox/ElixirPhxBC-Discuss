@@ -22,8 +22,17 @@ defmodule DiscussWeb.UserSocket do
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
   @impl true
-  def connect(_params, socket, _connect_info) do
-    {:ok, socket}
+  def connect(%{"token" => token} = conn, socket, _connect_info) do
+    IO.puts("+++++++ UserSocket token")
+    IO.inspect(token)
+    IO.inspect(conn)
+    case Phoenix.Token.verify(socket, "user socket", token, max_age: 1_209_600) do
+      {:ok, user_id} ->
+        {:ok, assign(socket, :user, user_id)}
+      {:error, reason} ->
+        IO.puts("****** connect just returning socket")
+        {:ok, socket}
+    end
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
