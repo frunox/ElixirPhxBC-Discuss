@@ -2,7 +2,7 @@ defmodule Discuss.Comment do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @derive {Jason.Encoder, only: [:content]}
+  @derive {Jason.Encoder, only: [:content, :user]}
 
   schema "comments" do
     field :content, :string
@@ -14,6 +14,9 @@ defmodule Discuss.Comment do
 
   @doc false
   def changeset(comment, attrs) do
+    IO.puts("---- Comment changeset comment, attrs")
+    IO.inspect comment
+    IO.inspect attrs
     comment
     |> cast(attrs, [:content])
     |> validate_required([:content])
