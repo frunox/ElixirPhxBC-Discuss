@@ -12,7 +12,7 @@ defmodule DiscussWeb.CommentsChannel do
       topic = 
         Topic
         |> Repo.get(topic_id)
-        |> Repo.preload(:comments)
+        |> Repo.preload(comments: [:user])
       {:ok, %{comments: topic.comments}, assign(socket, :topic, topic)}
     else
       {:error, %{reason: "unauthorized"}}
@@ -22,9 +22,10 @@ defmodule DiscussWeb.CommentsChannel do
   # V134 handle_in for adding new comment ('comment:add')
   def handle_in("comment:add", %{"content" => content}, socket) do
     topic = socket.assigns.topic
+    user_id = socket.assigns.user
  
     changeset = topic
-    |> build_assoc(:comments)
+    |> build_assoc(:comments, user_id: user_id)
     |> Comment.changeset(%{content: content})
 
     case Repo.insert(changeset) do
