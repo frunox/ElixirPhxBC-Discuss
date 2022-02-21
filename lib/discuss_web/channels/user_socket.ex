@@ -22,14 +22,14 @@ defmodule DiscussWeb.UserSocket do
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
   @impl true
-  def connect(%{"token" => token}, socket, _connect_info) do
+  def connect(%{"token" => token} = conn, socket, _connect_info) do
     if token == "none" do
       {:ok, socket}
     else
       case Phoenix.Token.verify(socket, "user socket", token, max_age: 1_209_600) do
         {:ok, user_id} ->
           {:ok, assign(socket, :user, user_id)}
-        {:error, reason} ->
+        {:error, _reason} ->
           :error
       end
     end
