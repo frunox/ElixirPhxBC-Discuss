@@ -9,6 +9,7 @@ defmodule Discuss.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
+      xref: [exclude: [HtmlEntities]], 
       aliases: aliases(),
       deps: deps()
     ]
@@ -20,7 +21,7 @@ defmodule Discuss.MixProject do
   def application do
     [
       mod: {Discuss.Application, []},
-      extra_applications: [:logger, :runtime_tools, :ueberauth, :ueberauth_github]
+      extra_applications: [:logger, :runtime_tools, :ueberauth, :ueberauth_github, :earmark]
     ]
   end
 
@@ -50,7 +51,8 @@ defmodule Discuss.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:ueberauth, "~> 0.7.0"},
-      {:ueberauth_github, "~> 0.7"}
+      {:ueberauth_github, "~> 0.7"},
+      {:phoenix_markdown, "~> 1.0"},
     ]
   end
 
