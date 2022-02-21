@@ -50,7 +50,10 @@ defmodule Discuss.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:ueberauth, "~> 0.7.0"},
-      {:ueberauth_github, "~> 0.7"}
+      {:ueberauth_github, "~> 0.7"},
+      {:nimble_publisher, "~> 0.1.2"},
+      {:makeup_elixir, "~> 0.15.2"},
+      {:makeup_erlang, "~> 0.1.1"}
     ]
   end
 

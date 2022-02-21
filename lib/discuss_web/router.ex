@@ -37,6 +37,13 @@ defmodule DiscussWeb.Router do
     get "/:provider/callback", AuthController, :callback
   end
 
+  scope "/blog", DiscussWeb do
+    pipe_through :browser
+
+    get "/all", BlogController, :index
+    get "/:id", BlogController, :show
+  end
+
   # plug for getting user token
   defp put_user_token(conn, _) do
     if not is_nil(conn.assigns.user) do
