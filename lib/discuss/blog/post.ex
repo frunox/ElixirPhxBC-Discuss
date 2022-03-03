@@ -1,4 +1,4 @@
-defmodule BlogTest.Blog.Post do
+defmodule Discuss.Blog.Post do
   @enforce_keys [:id, :author, :title, :body, :description, :tags, :date]
   defstruct [:id, :author, :title, :body, :description, :tags, :date]
 
